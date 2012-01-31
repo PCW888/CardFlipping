@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
@@ -17,7 +19,7 @@ import javax.swing.JFrame;
  * @author aaron@wintrisstech.org (Aaron VonderHaar)
  * @author http://wintrisstech.org
  */
-public class CardFlipping extends JComponent
+public class CardFlipping extends JComponent implements MouseListener
 {
 
     private int windowWidth = 800;
@@ -29,11 +31,15 @@ public class CardFlipping extends JComponent
     
     private int cardWidth = 100;
     private int cardHeight = 136;
+    private int[] cardX= new int[5];
+    private int[] cardY= new int [5]; 
     
     private Image redBack;
     private Image blueBack;
     private Image ace;
     private Image blank;
+    
+    private boolean[]= cardFlip = new boolean[5]; 
 
     public static void main(String[] args) throws IOException
     {
@@ -52,6 +58,21 @@ public class CardFlipping extends JComponent
         blueBack = ImageIO.read(getClass().getResource("nicubunu_Card_backs_grid_blue.png"));
         ace = ImageIO.read(getClass().getResource("nicubunu_Ornamental_deck_Ace_of_spades.png"));
         blank = ImageIO.read(getClass().getResource("card_blank.png"));
+        
+         cardX[0] = 100;
+        cardY[0] = 100;
+                
+        cardX[1] = 190;
+        cardY[1] = 70;
+        
+        cardX[2] = 330;
+        cardY[2] = 130;
+        
+        cardX[3] = 200;
+        cardY[3] = 200;
+        
+        cardX[4] = 350;
+        cardY[4] = 250;
     }
 
     @Override
@@ -77,6 +98,42 @@ public class CardFlipping extends JComponent
         // Draw the cards
         g.drawImage(redBack, (windowWidth - cardWidth) / 2, 
                 (windowHeight - cardHeight) / 2, cardWidth, cardHeight, null);
+        for (int i = 0; i < 5; i++)
+        {
+            g.drawImage(redBack,cardX[i] ,cardY[i] ,100 ,136 , this);
+        }
 
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent me) 
+    {
+        if(
+                cardX[0]<me.getX()
+                && me.getX() < cardX[0] + cardWidth
+                && cardY[0]< me.getY() 
+                && me.getY()< cardY[0] + cardWidth
+                );
+    }
+    
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
